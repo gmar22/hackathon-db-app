@@ -1,93 +1,70 @@
 import os
+from data_classes import *
 
 # Set up resources directory
 path = './resources/'
 if not os.path.exists(path):
     os.makedirs(path)
 
+# Parameters
+test_data = True
+if test_data:
+    shrinkFactor = 100
+else:
+    shrinkFactor = 0
 
-num_participants = 10
-num_judges = 10
-num_events = 10
-num_prizes = 10
-num_projects = 10
-num_workshops = 10
+num_events = 200 // shrinkFactor # >100 table
+num_participants = 4000 // shrinkFactor # >1000 table
+num_judges = num_participants // 5
+num_projects = 2000 // shrinkFactor # >1000 table
+num_workshops = num_projects * 2
 
 # ?
-num_workedOn = 10
 num_Visited = 10
 num_Reviewed = 10
 num_AwardedAt = 10
 
+# Set up Events relation
+with open(path + 'Events.csv', 'w') as file:
+    for i in range(num_events):
+        file.write(Events(i).to_string())
+
 # Set up Participants relation
 with open(path + 'Participants.csv', 'w') as file:
-    email = 'email'
-    name = 'name'
-    major = 'major'
-    classification = 'classification'
-    file.write(f'{email},{name},{major},{classification}')
+    for _ in range(num_participants):
+        file.write(Participant().to_string())
 
 # Set up Judges relation
 with open(path + 'Judges.csv', 'w') as file:
-    id = 0
-    name = 'name'
-    field = 'field'
-    file.write(f'{id},{name},{field}')
-
-# Set up Events relation
-with open(path + 'Events.csv', 'w') as file:
-    id = 0
-    name = 'name'
-    host = 'host'
-    event_date = '1963-11-22'
-    duration = 24
-    file.write(f'{id},{name},{host},"{event_date}",{duration}')
+    for i in range(num_judges):
+        file.write(Judge(i).to_string())
 
 # Set up Prizes relation
 with open(path + 'Prizes.csv', 'w') as file:
-    id = 0
-    placement = 1
-    amount = 0
-    sponsor = 'sponsor'
-    file.write(f'{id},{placement},{amount},{sponsor}')
+    file.write(Prizes())
 
 # Set up Projects relation
 with open(path + 'Projects.csv', 'w') as file:
-    link = 'link'
-    name = 'name'
-    field = 'field'
-    description = 'description'
-    file.write(f'{link},{name},{field},{description}',)
+    for i in range(num_projects):
+        file.write(Projects().to_string())
 
 # Set up Workshops relation
 with open(path + 'Workshops.csv', 'w') as file:
-    id = 0
-    name = 'name'
-    host = 'host'
-    field = 'field'
-    file.write(f'{id},{name},{host},{field}')
+    for i in range(num_workshops):
+        file.write(WorkShops(i).to_string())
 
 # Set up WorkedOn relation
 with open(path + 'WorkedOn.csv', 'w') as file:
-    email = 'email'
-    link = 'link'
-    file.write(f'{email},{link}')
+    file.write(WorkedOn())
 
 # Set up Visited relation
 with open(path + 'Visited.csv', 'w') as file:
-    email = 'email'
-    workshop_id = 0
-    file.write(f'{email},{workshop_id}')
+    file.write(Visited())
 
 # Set up Reviewed relation
 with open(path + 'Review.csv', 'w') as file:
-    link = 'link'
-    judge_id = 0
-    score = 0
-    file.write(f'{link},{judge_id},{score}')
+    file.write(Reviewed(num_judges))
 
 # Set up AwardedAt Relation
 with open(path + 'AwardedAt.csv', 'w') as file:
-    event_id = 0
-    prize_id = 0
-    file.write(f'{event_id},{prize_id}')
+    file.write(AwardedAt())
