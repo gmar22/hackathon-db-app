@@ -203,25 +203,24 @@ class WorkShops:
         return f'{self.id},{self.name},{self.host},{self.field},{self.event_id}\n'
 
 def WorkedOn():
-    email_list = list(emails.keys()) # Values are with empty []
-    link_list = list(links.keys()) # Values are event_id
+    link_keys = list(links.keys()) # Values are event_id
 
     rolling_str = ''
-    link_list_index = 0
-    for email in email_list:
+    link_index = 0
+    for email in emails.keys():
         num_projects = random.randint(1, 15)
 
         for _ in range(num_projects):
-            link = link_list[link_list_index % len(link_list)]
+            link = link_keys[link_index % len(link_keys)]
             event = links[link]
-            link_list_index += 1
+            link_index += 1
 
             if (event in emails[email]):
                 break
 
             else:
                 emails[email].append(event)
-                rolling_str += f'{email},{link}\n'
+                rolling_str += f'{email}@email.com,{link}.com\n'
 
     return rolling_str
 
@@ -232,7 +231,7 @@ def Visited():
             num_workshops = random.randint(0, len(event2workshop[event])-1)
 
             for workshop in event2workshop[event][:num_workshops]:
-                rolling_str += f'{email},{workshop}\n'
+                rolling_str += f'{email}@email.com,{workshop}\n'
 
     return rolling_str
 
@@ -247,7 +246,7 @@ def Reviewed(num_judges):
             judges.add(random.randint(1, num_judges-1))
 
         for judge in judges:
-            rolling_str += f'{link},{judge},{random.randint(0, 100)}\n'
+            rolling_str += f'{link}.com,{judge},{random.randint(0, 100)}\n'
 
     return rolling_str
 
@@ -256,6 +255,6 @@ def AwardedAt():
     for event_id in range(len(events)):
         for placement in range(placements):
             prize_id = placement * len(sponsors) + random.randint(0, len(sponsors)-1)
-            rolling_str += f'{event_id},{prize_id}\n'
+            rolling_str += f'{prize_id}, {event_id}\n'
 
     return rolling_str

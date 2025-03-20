@@ -11,18 +11,13 @@ test_data = True
 if test_data:
     shrinkFactor = 100
 else:
-    shrinkFactor = 0
+    shrinkFactor = 1
 
 num_events = 200 // shrinkFactor # >100 table
 num_participants = 4000 // shrinkFactor # >1000 table
-num_judges = num_participants // 5
-num_projects = 2000 // shrinkFactor # >1000 table
-num_workshops = num_projects * 2
-
-# ?
-num_Visited = 10
-num_Reviewed = 10
-num_AwardedAt = 10
+num_judges = num_events * 5
+num_projects = num_participants // 2 # >1000 table
+num_workshops = num_events * 4
 
 # Set up Events relation
 with open(path + 'Events.csv', 'w') as file:
@@ -62,7 +57,7 @@ with open(path + 'Visited.csv', 'w') as file:
     file.write(Visited())
 
 # Set up Reviewed relation
-with open(path + 'Review.csv', 'w') as file:
+with open(path + 'Reviewed.csv', 'w') as file:
     file.write(Reviewed(num_judges))
 
 # Set up AwardedAt Relation
