@@ -5,7 +5,6 @@ const { Client } = require('pg');
 require('dotenv').config();
 const { option1, option2, option3, option4a, option4b, option5 } = require('./queries')
 
-
 // Set up connection
 const client = new Client({
     connectionString: process.env.URL,

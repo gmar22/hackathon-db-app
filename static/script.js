@@ -4,8 +4,7 @@ const description1 = `Inputs: None,
     This query finds the highest total dollar amounts won by individual hackers across all events.
 `
 
-const description2 = `
-    Inputs: None,
+const description2 = `Inputs: None,
     Outputs: biased_judges, total_judges, avg_same, avg_diff
 
     This query determines whether judges are biased toward projects within their field: 

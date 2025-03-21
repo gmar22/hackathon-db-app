@@ -1,4 +1,4 @@
-/* Biggest Winner by Cash */ --TODO: simplify
+/* Biggest Winner by Cash */
 WITH ProjectWinnings AS (
     SELECT link, amount
         FROM AwardedAt
