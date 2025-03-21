@@ -1,18 +1,15 @@
 const express = require('express');
-const dotenv = require('dotenv');
-dotenv.config();
-
+const path = require('path');
 const app = express();
 
 // Middleware
-app.use(express.json());
+app.use(express.static(path.join(__dirname, '../public')));
 
-// Test endpoint
-app.get('/', (req, res) => {
-  res.send('Hello World');
+// Default route
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public', 'index.html'));
 });
 
-// Listen on port from environment variable or fallback to 3000
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
