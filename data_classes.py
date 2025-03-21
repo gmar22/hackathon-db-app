@@ -7,7 +7,7 @@ def random_string():
     return ''.join(random.choice(ascii_letters) for i in range(10))
 
 def random_date():
-    return str(random.randint(1950, 2025)).zfill(4) + '-' + str(random.randint(1, 12)).zfill(2) + '-' + str(random.randint(1, 29)).zfill(2)
+    return str(random.randint(1950, 2025)).zfill(4) + '-' + str(random.randint(1, 12)).zfill(2) + '-' + str(random.randint(1, 28)).zfill(2)
 
 # superkeys
 emails = {}
@@ -19,22 +19,12 @@ event2workshop = {}
 # Value Options
 majors = [
     "Computer Science",
-    "Software Engineering",
-    "Electrical Engineering",
-    "Mechanical Engineering",
-    "Civil Engineering",
-    "Data Science",
-    "Business",
-    "Graphic Design",
+    "Electrical",
+    "Mechanical",
     "Mathematics",
-    "Physics",
-    "Biomedical Engineering",
-    "Economics",
-    "Chemistry",
-    "Communications",
-    "Philosophy",
     "Statistics",
-    "Education",
+    "Physics",
+    "Business"
 ]
 classifications = ['freshman', 'sophomore', 'junior', 'senior']
 fields = [
@@ -148,7 +138,7 @@ class Judge:
         return f'{self.id},{self.name},{self.field}\n'
 
 # Generate all possible prizes. Each placement has set amount regardless of sponsor
-placements = 10
+placements = 5
 def Prizes():
 
     rolling_str = ''
@@ -208,7 +198,7 @@ def WorkedOn():
     rolling_str = ''
     link_index = 0
     for email in emails.keys():
-        num_projects = random.randint(1, 15)
+        num_projects = random.randint(1, 5)
 
         for _ in range(num_projects):
             link = link_keys[link_index % len(link_keys)]
@@ -228,6 +218,9 @@ def Visited():
     rolling_str = ''
     for email in emails.keys(): 
         for event in emails[email]:
+            if event not in event2workshop: # Event has no workshops
+                continue
+
             num_workshops = random.randint(0, len(event2workshop[event])-1)
 
             for workshop in event2workshop[event][:num_workshops]:
@@ -239,7 +232,7 @@ def Visited():
 def Reviewed(num_judges):
     rolling_str = ''
     for link in links.keys():
-        num_reviews = random.randint(1, max(num_judges, num_judges // 100))
+        num_reviews = random.randint(1, num_judges // 100)
 
         judges = set()
         for _ in range(num_reviews):

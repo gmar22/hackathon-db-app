@@ -1,9 +1,41 @@
 <!DOCTYPE html>
-<html>
-<head>
-</head>
 
-<body>
-Hello World!!!!
-</body>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Hackathon-DB-APP</title>
+        <script src="script.js" defer></script>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+        <div id="title">
+            Title
+        </div>
+
+        <div id="frame">
+            <div class="box">
+                <div id="options">
+                    <div><button>Option1</button></div>
+                    <div><button>Option2</button></div>
+                    <div><button>Option3</button></div>
+                    <div><button>Option4</button></div>
+                    <div><button>Option5</button></div>
+                </div>
+                <div class="subbox">
+                    <div style="flex: 1 1 25%"><div id="description">Desc</div></div>
+                    <div style="flex: 1 1 10%">
+                        <div id="input"></div>
+                    </div>
+                    <div style="flex: 0 0 15%"><button id="submit">Submit</button></div>
+                </div> 
+            </div>
+
+            <div class="box">
+                <table id="output">
+                </table>
+            </div>
+        </div>
+
+    </body>
 </html>

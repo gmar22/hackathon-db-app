@@ -1,0 +1,108 @@
+body {
+    height: 80vh;
+    width: 80vw;
+    padding: 10vh 10vw;
+    margin: 0;
+    border: 0;
+}
+
+div {
+    margin: 0;
+    padding: 0;
+}
+
+label {
+    margin: 1vh 1vw;
+}
+
+table {
+    width: 100%;
+
+    /* display: block; */
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+#title {
+    width: calc(100% - 2vw);
+    height: calc(10% - 2vw);
+
+    border: 2px solid black;
+    margin: 1vh 1vw;
+}
+
+#frame {
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+
+    flex-flow: row;
+    flex-wrap: wrap;
+}
+
+.box {
+    flex: 1;
+
+    max-width: 100%;
+    max-height: 100%;
+    overflow: auto;
+
+    border: 2px solid black;
+    margin: 0.5vh 0.5vw;
+}
+
+#options {
+    width: 100%;
+    height: 10%;
+    
+    display: flex;
+}
+
+#options div {
+    flex: 1;
+
+    display: flex;
+}
+
+#options div button {
+    flex: 1;
+
+}
+
+.subbox {
+    width: 100%;
+    height: 90%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.subbox > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.subbox > div > div {
+    WIDTH: 90%;
+    max-width: 90%;
+    HEIGHT: 80%;
+    border: 1px solid black; 
+}
+
+#description {
+    color: black;
+    white-space: pre-line;
+    overflow: auto; 
+}
+
+#input {
+    flex: 1 1 40%;
+}

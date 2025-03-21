@@ -1,4 +1,4 @@
-/* Biggest Winner by Cash */ --TODO: simplify
+const option1 = `
 WITH ProjectWinnings AS (
     SELECT link, amount
         FROM AwardedAt
@@ -16,8 +16,9 @@ SELECT email, name, amount
             GROUP BY email
     )    
     ORDER BY amount DESC;
-  
-/* Judge Bias */
+`
+
+const option2 = `
 WITH 
     SameField AS (
         SELECT judge_id, AVG(score) AS score
@@ -60,9 +61,9 @@ SELECT
     AVG(SameFieldScore) AS avg_same, 
     AVG(DiffFieldScore) as avg_diff
     FROM JudgeBiases;
+`
 
-/* Major Combinations */
---Average (a)
+const option3 = `
 SELECT combo, cast(placed as float) / cast(submitted as float) * 100 AS percent_placed, placed, submitted
     FROM (SELECT combo, COUNT(placement) AS placed, COUNT(Combos.link) AS submitted
         FROM
@@ -77,9 +78,8 @@ SELECT combo, cast(placed as float) / cast(submitted as float) * 100 AS percent_
         GROUP BY combo
     )
     ORDER BY percent_placed DESC, placed DESC;
-
-/* Workshop efficacy */ -- TODO add field specific
---a
+`
+const option4a = `
 WITH 
     ExtendedWorkedOn AS (
         SELECT WorkedOn.email, P1.event_id, SUM(placement) AS placement, COUNT(workshop_id) AS visits
@@ -109,8 +109,8 @@ SELECT Placed.event_id, AVG(Placed.avg_visits) AS placed_avg, AVG(NotPlaced.avg_
         ) AS NotPlaced
         WHERE Placed.event_id = NotPlaced.event_id
     GROUP BY Placed.event_id;
-
---b
+`
+const option4b = `
 WITH 
     ExtendedWorkedOn AS (
         SELECT WorkedOn.email, P1.event_id, SUM(placement) AS placement, COUNT(workshop_id) AS visits
@@ -140,8 +140,18 @@ SELECT AVG(Placed.avg_visits) AS placed_avg, AVG(NotPlaced.avg_visits) AS not_pl
             GROUP BY event_id
         ) AS NotPlaced
         WHERE Placed.event_id = NotPlaced.event_id);
-    
-/* Remove Cheaters */
---Handled through trigger and cascading deletes
+`
+
+const option5 = `
 DELETE FROM Participants
-    WHERE email=...;
+    WHERE email = $1;
+`
+
+module.exports = {
+    option1,
+    option2,
+    option3,
+    option4a,
+    option4b,
+    option5,
+};

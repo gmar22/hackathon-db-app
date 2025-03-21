@@ -113,7 +113,7 @@ CREATE VIEW Placements AS
                         ) AS placement
                 FROM Scores
         )
-        WHERE placement <= 10;
+        WHERE placement <= 5;
 
 /* Triggers */
 CREATE FUNCTION delete_project() RETURNS TRIGGER AS $$

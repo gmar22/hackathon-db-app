@@ -7,7 +7,7 @@ if not os.path.exists(path):
     os.makedirs(path)
 
 # Parameters
-test_data = True
+test_data = False
 if test_data:
     shrinkFactor = 100
 else:
