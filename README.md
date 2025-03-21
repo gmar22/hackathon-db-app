@@ -1,6 +1,4 @@
 # hackathon-db-app
-
-
 https://help.heroku.com/KTXB2SJT/how-do-i-copy-a-csv-file-into-a-postgres-table  
 Generated data is copied into database:  
 \copy Participants FROM resources/Participants.csv WITH (FORMAT CSV);  
@@ -29,4 +27,11 @@ can be used if data is refreshed.
 \copy Reviewed FROM C:\Users\Gage\Desktop\csv/Reviewed.csv WITH (FORMAT CSV);  
 \copy AwardedAt FROM C:\Users\Gage\Desktop\csv/AwardedAt.csv WITH (FORMAT CSV);    
 
+NPM can be used to build locally
+-npm install
+-set up .env variables (DATABASE_URL)
+-npm start
+
+However, the interface is hosted:
+-HEROKU LINK: https://hackathon-db-app-cffcc58e38a3.herokuapp.com/
 
