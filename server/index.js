@@ -7,7 +7,7 @@ const { option1, option2, option3, option4a, option4b, option5 } = require('./qu
 
 // Set up connection
 const client = new Client({
-    connectionString: process.env.URL,
+    connectionString: process.env.DATABASE_URL,
     ssl: {
         rejectUnauthorized: false
     }
@@ -152,7 +152,7 @@ app.get('*', (req, res) => {
   });
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5432;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
