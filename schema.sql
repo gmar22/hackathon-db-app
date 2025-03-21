@@ -53,8 +53,12 @@ CREATE TABLE WorkedOn(
     email CHAR(30),
     link CHAR(50),
     PRIMARY KEY(email, link),
-    FOREIGN KEY(email) REFERENCES Participants(email),
-    FOREIGN KEY(link) REFERENCES Projects(link)
+    FOREIGN KEY(email) 
+        REFERENCES Participants(email)
+        ON DELETE CASCADE,
+    FOREIGN KEY(link) 
+        REFERENCES Projects(link)
+
 );
 
 -- Participants to Workshops (many to many)
@@ -62,7 +66,9 @@ CREATE TABLE Visited(
     email CHAR(30),
     workshop_id INT,
     PRIMARY KEY(email, workshop_id),
-    FOREIGN KEY(email) REFERENCES Participants(email),
+    FOREIGN KEY(email) 
+        REFERENCES Participants(email)
+        ON DELETE CASCADE,
     FOREIGN KEY(workshop_id) REFERENCES Workshops(id)
 );
 
@@ -72,7 +78,9 @@ CREATE TABLE Reviewed(
     judge_id INT,
     score INT NOT NULL,
     PRIMARY KEY(link, judge_id),
-    FOREIGN KEY(link) REFERENCES Projects(link),
+    FOREIGN KEY(link) 
+        REFERENCES Projects(link)
+        ON DELETE CASCADE,
     FOREIGN KEY(judge_id) REFERENCES Judges(id)
 );
 
@@ -84,3 +92,43 @@ CREATE TABLE AwardedAt(
     FOREIGN KEY(prize_id) REFERENCES Prizes(id),
     FOREIGN KEY(event_id) REFERENCES Events(id)
 );
+
+/* Views */
+CREATE VIEW Scores AS 
+    SELECT Projects.link AS link, name, field, description, event_id, AVG(score) AS score
+        FROM 
+            Projects, 
+            Reviewed
+        WHERE Projects.link = Reviewed.link
+        GROUP BY Projects.link;
+
+CREATE VIEW Placements AS
+        SELECT * FROM (
+            SELECT event_id, link, name, field, description,
+                RANK() OVER (
+                        PARTITION BY event_id 
+                        ORDER BY 
+                            event_id, 
+                            SCORE DESC
+                        ) AS placement
+                FROM Scores
+        )
+        WHERE placement <= 10;
+
+/* Triggers */
+CREATE FUNCTION delete_project() RETURNS TRIGGER AS $$
+BEGIN
+
+    IF NOT EXISTS (SELECT link FROM WorkedOn WHERE OLD.link = link) THEN
+        DELETE FROM Projects WHERE link=OLD.link;
+    END IF;
+
+    RETURN OLD; -- Necessary but meaningless
+
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER no_valid_participants
+    AFTER DELETE ON WorkedOn
+    FOR EACH ROW       
+    EXECUTE FUNCTION delete_project();

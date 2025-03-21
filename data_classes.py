@@ -213,7 +213,6 @@ def WorkedOn():
         for _ in range(num_projects):
             link = link_keys[link_index % len(link_keys)]
             event = links[link]
-            link_index += 1
 
             if (event in emails[email]):
                 break
@@ -221,6 +220,7 @@ def WorkedOn():
             else:
                 emails[email].append(event)
                 rolling_str += f'{email}@email.com,{link}.com\n'
+                link_index += 1
 
     return rolling_str
 
@@ -243,7 +243,7 @@ def Reviewed(num_judges):
 
         judges = set()
         for _ in range(num_reviews):
-            judges.add(random.randint(1, num_judges-1))
+            judges.add(random.randint(0, num_judges-1))
 
         for judge in judges:
             rolling_str += f'{link}.com,{judge},{random.randint(0, 100)}\n'
