@@ -137,7 +137,7 @@ app.get('/query-removed-projects', async (req, res)=> {
                 FROM Formatted
                 WHERE people = '${people}';
         `
-
+        console.log(sql)
         const result = await client.query(sql);
         res.json(result.rows)
     }

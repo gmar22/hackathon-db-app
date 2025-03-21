@@ -14,9 +14,7 @@ const description2 = `Inputs: None,
         -avg_diff is the average score given by a judge when the project is not in their field
 `
 
-// Input order
-const description3 = `
-    Inputs: None,
+const description3 = `Inputs: None,
     Outputs: combo, percent_placed, placed, submitted
 
     This query determines the most effective major combinations across all projects and all hackathons:
@@ -205,9 +203,10 @@ submit.addEventListener('click', async ()=>  {
                     response = await fetch(`/query-removed-participants?condition=${rolling.substring(0, rolling.length-4)}`);
                     data = await response.json();
                     format_json(data);
+                    console.log('here')
 
                     // Get removed projects
-                    arr.sort();
+                    arr.sort((a, b) => a.localeCompare(b, "en", { sensitivity: "case" }));                    
                     rolling = '';
                     arr.forEach(email => {
                         rolling += `${email},`
@@ -215,7 +214,7 @@ submit.addEventListener('click', async ()=>  {
                     response = await fetch(`/query-removed-projects?people=${rolling.substring(0, rolling.length-1)}`);
                     data = await response.json();
                     format_json(data);
-
+                    console.log('b')
                     // Remove participants and projects
                     arr.forEach(async email => {
                         response = await fetch(`/query-option5?email=${email}`);
